@@ -1,0 +1,178 @@
+{% extends "base.html" %}
+
+{% block title %}About - Project Overview & NLP Concepts{% endblock %}
+
+{% block content %}
+<div class="container py-3">
+    <!-- Header -->
+    <div class="row justify-content-center text-center mb-5">
+        <div class="col-lg-8">
+            <span class="badge bg-primary-subtle text-primary border border-primary-subtle px-3 py-2 rounded-pill mb-2 fw-semibold">
+                <i class="bi bi-book me-1"></i> Academic Mini Project
+            </span>
+            <h1 class="display-6 fw-bold text-navy">About The Project</h1>
+            <p class="lead text-muted">
+                Understanding Natural Language Processing, Indic language computation, and automated news categorization.
+            </p>
+        </div>
+    </div>
+
+    <!-- Content Cards Grid -->
+    <div class="row g-4 justify-content-center">
+        <!-- What is NLP? -->
+        <div class="col-md-6">
+            <div class="card card-custom h-100 border-0 shadow-sm p-3">
+                <div class="card-body">
+                    <div class="d-flex align-items-center mb-3">
+                        <div class="icon-box bg-primary-subtle text-primary rounded-3 p-3 me-3">
+                            <i class="bi bi-chat-left-dots-fill fs-3"></i>
+                        </div>
+                        <h4 class="card-title fw-bold text-navy mb-0">What is NLP?</h4>
+                    </div>
+                    <p class="text-muted">
+                        <strong>Natural Language Processing (NLP)</strong> is a specialized subfield of Artificial Intelligence (AI) and computational linguistics focused on enabling computers to understand, interpret, process, and derive meaningful insights from human languages in written and spoken forms.
+                    </p>
+                    <p class="text-muted mb-0">
+                        In this project, NLP bridges human Marathi expression and statistical machine learning classifiers by transforming raw news text into structured mathematical vectors.
+                    </p>
+                </div>
+            </div>
+        </div>
+
+        <!-- What is Marathi NLP? -->
+        <div class="col-md-6">
+            <div class="card card-custom h-100 border-0 shadow-sm p-3">
+                <div class="card-body">
+                    <div class="d-flex align-items-center mb-3">
+                        <div class="icon-box bg-warning-subtle text-warning rounded-3 p-3 me-3">
+                            <i class="bi bi-translate fs-3"></i>
+                        </div>
+                        <h4 class="card-title fw-bold text-navy mb-0">What is Marathi NLP?</h4>
+                    </div>
+                    <p class="text-muted">
+                        <strong>Marathi</strong> is an Indo-Aryan language spoken by more than 83 million people, written in the Devanagari script. Marathi NLP presents unique linguistic challenges, including:
+                    </p>
+                    <ul class="text-muted mb-0">
+                        <li><strong>Agglutinative Morphology:</strong> Words often combine roots with postpositions (उदा. "शाळेमध्ये", "भारताचा").</li>
+                        <li><strong>Devanagari Unicode Encodings:</strong> Matras, viramas, and conjunct consonants require proper normalization.</li>
+                        <li><strong>Low Resource Setting:</strong> Fewer pre-labeled corpora compared to English.</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- What is Text Classification? -->
+        <div class="col-md-6">
+            <div class="card card-custom h-100 border-0 shadow-sm p-3">
+                <div class="card-body">
+                    <div class="d-flex align-items-center mb-3">
+                        <div class="icon-box bg-success-subtle text-success rounded-3 p-3 me-3">
+                            <i class="bi bi-tags-fill fs-3"></i>
+                        </div>
+                        <h4 class="card-title fw-bold text-navy mb-0">What is Text Classification?</h4>
+                    </div>
+                    <p class="text-muted">
+                        <strong>Text Classification</strong> is a supervised machine learning task where an algorithm learns to assign predefined category labels to unstructured textual documents based on their underlying linguistic content.
+                    </p>
+                    <p class="text-muted mb-0">
+                        Given a Marathi headline \(d\), the system extracts high-dimensional TF-IDF features and computes the most probable category \(\hat{c} \in \{ \text{State, Entertainment, Sports} \}\).
+                    </p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Why News Classification is Useful? -->
+        <div class="col-md-6">
+            <div class="card card-custom h-100 border-0 shadow-sm p-3">
+                <div class="card-body">
+                    <div class="d-flex align-items-center mb-3">
+                        <div class="icon-box bg-info-subtle text-info rounded-3 p-3 me-3">
+                            <i class="bi bi-newspaper fs-3"></i>
+                        </div>
+                        <h4 class="card-title fw-bold text-navy mb-0">Why is it Useful?</h4>
+                    </div>
+                    <p class="text-muted">
+                        With thousands of regional articles published daily across digital portals and newspapers, manual categorization is slow and labor-intensive. Automated classification enables:
+                    </p>
+                    <ul class="text-muted mb-0">
+                        <li><strong>Automated News Portals:</strong> Instant routing of incoming Marathi articles into section pages.</li>
+                        <li><strong>Personalized Recommendation:</strong> Filtering feeds based on reader preferences.</li>
+                        <li><strong>Trend Monitoring:</strong> Tracking political, health, or economic issues in Maharashtra.</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Project Objective & Workflow -->
+    <div class="row mt-5 justify-content-center">
+        <div class="col-lg-12">
+            <div class="card card-custom border-0 shadow-sm p-4">
+                <div class="card-body">
+                    <h3 class="fw-bold text-navy mb-3"><i class="bi bi-bullseye text-primary me-2"></i>Project Objectives</h3>
+                    <div class="row g-3 mb-4">
+                        <div class="col-md-4">
+                            <div class="p-3 border rounded-3 h-100 bg-light">
+                                <h6 class="fw-bold text-dark">1. Linguistic Preservation</h6>
+                                <p class="small text-muted mb-0">Directly process Devanagari Unicode without lossy transliteration to English, preserving authentic Marathi orthography.</p>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="p-3 border rounded-3 h-100 bg-light">
+                                <h6 class="fw-bold text-dark">2. Multi-Model Comparison</h6>
+                                <p class="small text-muted mb-0">Rigorously train and evaluate Multinomial Naive Bayes, Logistic Regression, and Linear SVM on stratified test folds.</p>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="p-3 border rounded-3 h-100 bg-light">
+                                <h6 class="fw-bold text-dark">3. Production-Ready Deployment</h6>
+                                <p class="small text-muted mb-0">Deliver a web application with responsive user interface and standardized REST API endpoints.</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <h3 class="fw-bold text-navy mb-3"><i class="bi bi-diagram-3-fill text-primary me-2"></i>End-to-End Workflow</h3>
+                    <div class="p-4 bg-light rounded-3 text-center border">
+                        <div class="row align-items-center">
+                            <div class="col-md-2 mb-2 mb-md-0">
+                                <div class="p-2 bg-white rounded shadow-sm">
+                                    <i class="bi bi-file-earmark-text text-primary fs-3"></i>
+                                    <div class="fw-bold small mt-1">Marathi Headline</div>
+                                </div>
+                            </div>
+                            <div class="col-md-1 d-none d-md-block text-muted fs-4">→</div>
+                            <div class="col-md-2 mb-2 mb-md-0">
+                                <div class="p-2 bg-white rounded shadow-sm">
+                                    <i class="bi bi-funnel text-warning fs-3"></i>
+                                    <div class="fw-bold small mt-1">Preprocessing & Stopwords</div>
+                                </div>
+                            </div>
+                            <div class="col-md-1 d-none d-md-block text-muted fs-4">→</div>
+                            <div class="col-md-2 mb-2 mb-md-0">
+                                <div class="p-2 bg-white rounded shadow-sm">
+                                    <i class="bi bi-123 text-success fs-3"></i>
+                                    <div class="fw-bold small mt-1">TF-IDF N-grams</div>
+                                </div>
+                            </div>
+                            <div class="col-md-1 d-none d-md-block text-muted fs-4">→</div>
+                            <div class="col-md-2 mb-2 mb-md-0">
+                                <div class="p-2 bg-white rounded shadow-sm">
+                                    <i class="bi bi-cpu text-info fs-3"></i>
+                                    <div class="fw-bold small mt-1">Calibrated ML Model</div>
+                                </div>
+                            </div>
+                            <div class="col-md-1 d-none d-md-block text-muted fs-4">→</div>
+                            <div class="col-md-1">
+                                <div class="p-2 bg-primary text-white rounded shadow-sm">
+                                    <i class="bi bi-check-circle fs-3"></i>
+                                    <div class="fw-bold small mt-1">Category</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

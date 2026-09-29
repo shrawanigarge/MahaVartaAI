@@ -1,0 +1,49 @@
+======================================================================
+MARATHI NEWS CLASSIFICATION - DATASET PREPARATION REPORT
+Generated At: 2026-09-29 19:15:47
+======================================================================
+
+1. RAW SOURCE DATASETS SUMMARY:
+   - Old Synthetic Dataset (data/marathi_news.csv) : 2,425 rows (10 categories)
+   - New Training Dataset  (data/train.csv)        : 9,673 rows (3 raw labels: state, entertainment, sports)
+   - New Validation Dataset(data/valid.csv)        : 2,419 rows (3 raw labels: state, entertainment, sports)
+   - Total Raw Records                             : 14,517 rows
+
+2. LABEL MAPPING & STANDARDIZATION:
+   - state         -> Maharashtra
+   - entertainment -> Entertainment
+   - sports        -> Sports
+   - Synthetic set -> Preserved across all 10 target categories
+
+3. DATA CLEANING & DEDUPLICATION:
+   - Synthetic rows after cleaning/dedup           : 2,425
+   - New train.csv rows after cleaning/dedup       : 9,658
+   - Validation rows after cleaning/dedup          : 2,418
+   - Combined training rows before dedup           : 12,083
+   - Exact duplicate rows removed                  : 1
+   - Duplicate headlines removed across sources    : 1
+   - Train/Validation overlapping samples removed  : 26
+   - Zero Data Leakage Guaranteed                  : YES (Strict disjoint separation)
+
+4. FINAL TRAINING DATASET (data/combined_train.csv):
+   - Total Training Samples                        : 12,056
+   - Total Categories Supported                    : 10
+   - Categories: Business, Education, Entertainment, Health, India, Maharashtra, Politics, Sports, Technology, World
+
+5. CLASS DISTRIBUTION (TRAINING SET):
+   - Business       :   235 ( 1.95%)
+   - Education      :   235 ( 1.95%)
+   - Entertainment  :  2937 (24.36%)
+   - Health         :   235 ( 1.95%)
+   - India          :   235 ( 1.95%)
+   - Maharashtra    :  6249 (51.83%)
+   - Politics       :   235 ( 1.95%)
+   - Sports         :  1225 (10.16%)
+   - Technology     :   235 ( 1.95%)
+   - World          :   235 ( 1.95%)
+
+6. EXTERNAL VALIDATION DATASET (data/valid.csv):
+   - Total Validation Samples                      : 2,418
+   - Note: External valid.csv strictly evaluates the 3 mapped categories (Maharashtra, Entertainment, Sports).
+   - Internal stratified validation split is used for full 10-category evaluation.
+======================================================================

@@ -1,0 +1,639 @@
+{% extends "base.html" %}
+
+{% block title %}Model Methodology & Pipeline{% endblock %}
+
+{% block content %}
+
+<div class="container py-3">
+
+    <!-- PAGE HEADER -->
+    <div class="row justify-content-center text-center mb-5">
+        <div class="col-lg-8">
+
+            <span
+                class="badge bg-primary-subtle text-primary border border-primary-subtle px-3 py-2 rounded-pill mb-2 fw-semibold">
+                <i class="bi bi-diagram-2 me-1"></i>
+                Technical Architecture
+            </span>
+
+            <h1 class="display-6 fw-bold text-navy">
+                Machine Learning Methodology
+            </h1>
+
+            <p class="lead text-muted">
+                NLP preprocessing, TF-IDF feature extraction, model training,
+                and classification.
+            </p>
+
+        </div>
+    </div>
+
+
+    <!-- NLP PREPROCESSING PIPELINE -->
+    <div class="row justify-content-center mb-5">
+
+        <div class="col-lg-10">
+
+            <div class="card card-custom border-0 shadow-sm p-4">
+
+                <div class="card-body">
+
+                    <h4 class="fw-bold text-navy mb-3 text-center">
+                        <i class="bi bi-gear-wide-connected text-primary me-2"></i>
+                        NLP Preprocessing Pipeline
+                    </h4>
+
+                    <p class="text-muted text-center col-lg-9 mx-auto mb-4">
+                        The end-to-end pipeline processes Marathi news headlines
+                        through structured text preprocessing and feature
+                        transformation stages before model inference.
+                    </p>
+
+
+                    <!-- PIPELINE -->
+                    <div class="pipeline-grid mb-4">
+
+                        <!-- 01 -->
+                        <div class="pipeline-step-item">
+                            <div class="pipeline-step-card">
+
+                                <div class="pipeline-step-num">01</div>
+
+                                <h6 class="pipeline-step-title">
+                                    Marathi News Headline
+                                </h6>
+
+                                <p class="pipeline-step-desc">
+                                    Raw Marathi news headline entered by the user
+                                    in Devanagari script.
+                                </p>
+
+                            </div>
+                        </div>
+
+
+                        <div class="pipeline-arrow">
+                            <i class="bi bi-arrow-down d-lg-none"></i>
+                            <i class="bi bi-arrow-right d-none d-lg-block"></i>
+                        </div>
+
+
+                        <!-- 02 -->
+                        <div class="pipeline-step-item">
+                            <div class="pipeline-step-card">
+
+                                <div class="pipeline-step-num">02</div>
+
+                                <h6 class="pipeline-step-title">
+                                    Unicode Normalization
+                                </h6>
+
+                                <p class="pipeline-step-desc">
+                                    Standardizes Devanagari Unicode representation
+                                    for consistent text processing.
+                                </p>
+
+                            </div>
+                        </div>
+
+
+                        <div class="pipeline-arrow">
+                            <i class="bi bi-arrow-down d-lg-none"></i>
+                            <i class="bi bi-arrow-right d-none d-lg-block"></i>
+                        </div>
+
+
+                        <!-- 03 -->
+                        <div class="pipeline-step-item">
+                            <div class="pipeline-step-card">
+
+                                <div class="pipeline-step-num">03</div>
+
+                                <h6 class="pipeline-step-title">
+                                    Text Cleaning
+                                </h6>
+
+                                <p class="pipeline-step-desc">
+                                    Removes URLs, HTML elements, unnecessary
+                                    symbols, and unwanted punctuation.
+                                </p>
+
+                            </div>
+                        </div>
+
+
+                        <div class="pipeline-arrow">
+                            <i class="bi bi-arrow-down d-lg-none"></i>
+                            <i class="bi bi-arrow-right d-none d-lg-block"></i>
+                        </div>
+
+
+                        <!-- 04 -->
+                        <div class="pipeline-step-item">
+                            <div class="pipeline-step-card">
+
+                                <div class="pipeline-step-num">04</div>
+
+                                <h6 class="pipeline-step-title">
+                                    Tokenization
+                                </h6>
+
+                                <p class="pipeline-step-desc">
+                                    Splits the cleaned Marathi headline into
+                                    individual word tokens.
+                                </p>
+
+                            </div>
+                        </div>
+
+
+                        <div class="pipeline-arrow">
+                            <i class="bi bi-arrow-down d-lg-none"></i>
+                            <i class="bi bi-arrow-right d-none d-lg-block"></i>
+                        </div>
+
+
+                        <!-- 05 -->
+                        <div class="pipeline-step-item">
+                            <div class="pipeline-step-card">
+
+                                <div class="pipeline-step-num">05</div>
+
+                                <h6 class="pipeline-step-title">
+                                    Stopword Removal
+                                </h6>
+
+                                <p class="pipeline-step-desc">
+                                    Removes commonly occurring Marathi
+                                    grammatical words.
+                                </p>
+
+                            </div>
+                        </div>
+
+
+                        <div class="pipeline-arrow">
+                            <i class="bi bi-arrow-down d-lg-none"></i>
+                            <i class="bi bi-arrow-right d-none d-lg-block"></i>
+                        </div>
+
+
+                        <!-- 06 -->
+                        <div class="pipeline-step-item">
+                            <div class="pipeline-step-card">
+
+                                <div class="pipeline-step-num">06</div>
+
+                                <h6 class="pipeline-step-title">
+                                    TF-IDF Vectorization
+                                </h6>
+
+                                <p class="pipeline-step-desc">
+                                    Converts processed text into numerical
+                                    TF-IDF feature weights using word
+                                    unigrams and bigrams.
+                                </p>
+
+                            </div>
+                        </div>
+
+
+                        <div class="pipeline-arrow">
+                            <i class="bi bi-arrow-down d-lg-none"></i>
+                            <i class="bi bi-arrow-right d-none d-lg-block"></i>
+                        </div>
+
+
+                        <!-- 07 -->
+                        <div class="pipeline-step-item">
+                            <div class="pipeline-step-card">
+
+                                <div class="pipeline-step-num">07</div>
+
+                                <h6 class="pipeline-step-title">
+                                    Machine Learning Model
+                                </h6>
+
+                                <p class="pipeline-step-desc">
+                                    The TF-IDF feature vector is passed to
+                                    the trained classification model.
+                                </p>
+
+                            </div>
+                        </div>
+
+
+                        <div class="pipeline-arrow">
+                            <i class="bi bi-arrow-down d-lg-none"></i>
+                            <i class="bi bi-arrow-right d-none d-lg-block"></i>
+                        </div>
+
+
+                        <!-- 08 -->
+                        <div class="pipeline-step-item">
+
+                            <div class="pipeline-step-card border-primary-subtle bg-primary-subtle bg-opacity-25">
+
+                                <div class="pipeline-step-num bg-primary text-white border-primary">
+                                    08
+                                </div>
+
+                                <h6 class="pipeline-step-title text-primary">
+                                    News Category
+                                </h6>
+
+                                <p class="pipeline-step-desc">
+                                    Predicts one of the 10 target Marathi
+                                    news categories.
+                                </p>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+
+                    <!-- PIPELINE DIAGRAM -->
+                    <div class="architecture-diagram text-center p-3 bg-light rounded-3 font-monospace small">
+
+                        <pre class="mb-0 text-dark">
+
+Marathi News Headline
+(उदा. "हृतिक करतोय बायोपिक 'सुपर 30'")
+                  │
+                  ▼
+Unicode Normalization
+                  │
+                  ▼
+Text Cleaning
+                  │
+                  ▼
+Tokenization
+                  │
+                  ▼
+Stopword Removal
+                  │
+                  ▼
+TF-IDF Feature Extraction
+(Unigrams + Bigrams)
+                  │
+                  ▼
+Machine Learning Models
+                  │
+                  ▼
+Calibrated Linear SVM
+                  │
+                  ▼
+Predicted News Category
+(10 Target Categories)
+
+                        </pre>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <!-- DETAILED METHODOLOGY -->
+    <div class="row g-4">
+
+
+        <!-- STEP 1 -->
+        <div class="col-md-6">
+
+            <div class="card card-custom h-100 border-0 shadow-sm p-3">
+
+                <div class="card-body">
+
+                    <span class="badge bg-primary px-3 py-1 rounded-pill mb-2">
+                        Step 1
+                    </span>
+
+                    <h5 class="fw-bold text-navy">
+                        Devanagari NLP Preprocessing
+                    </h5>
+
+                    <p class="text-muted small">
+                        Marathi news headlines are processed to prepare
+                        the text for machine-learning classification.
+                        The preprocessing pipeline includes:
+                    </p>
+
+                    <ul class="text-muted small mb-0">
+
+                        <li>
+                            <strong>Unicode Normalization:</strong>
+                            Standardizes Devanagari Unicode representation
+                            for consistent text processing.
+                        </li>
+
+                        <li>
+                            <strong>Noise Filtering:</strong>
+                            Removes URLs, HTML elements, unwanted symbols,
+                            and unnecessary punctuation.
+                        </li>
+
+                        <li>
+                            <strong>Tokenization:</strong>
+                            Divides the cleaned Marathi headline into
+                            individual word tokens.
+                        </li>
+
+                        <li>
+                            <strong>Stopword Removal:</strong>
+                            Removes commonly occurring Marathi grammatical
+                            words while preserving meaningful words and
+                            named entities.
+                        </li>
+
+                    </ul>
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <!-- STEP 2 -->
+        <div class="col-md-6">
+
+            <div class="card card-custom h-100 border-0 shadow-sm p-3">
+
+                <div class="card-body">
+
+                    <span class="badge bg-primary px-3 py-1 rounded-pill mb-2">
+                        Step 2
+                    </span>
+
+                    <h5 class="fw-bold text-navy">
+                        TF-IDF Vectorization
+                    </h5>
+
+                    <p class="text-muted small">
+                        TF-IDF transforms the processed Marathi text
+                        into numerical feature vectors that can be
+                        used by machine-learning algorithms.
+                    </p>
+
+                    <div class="p-2 bg-light rounded text-center small font-monospace mb-3">
+
+                        TF-IDF(t,d) = TF(t,d) × IDF(t)
+
+                    </div>
+
+                    <ul class="text-muted small mb-0">
+
+                        <li>
+                            <strong>N-Gram Range (1, 2):</strong>
+                            Uses individual Marathi words (unigrams)
+                            and consecutive word pairs (bigrams).
+                        </li>
+
+                        <li>
+                            <strong>Numerical Representation:</strong>
+                            Converts textual information into weighted
+                            numerical features.
+                        </li>
+
+                        <li>
+                            <strong>Model Input:</strong>
+                            The resulting TF-IDF vector is passed to
+                            the machine-learning classifier.
+                        </li>
+
+                    </ul>
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <!-- STEP 3 -->
+        <div class="col-md-6">
+
+            <div class="card card-custom h-100 border-0 shadow-sm p-3">
+
+                <div class="card-body">
+
+                    <span class="badge bg-primary px-3 py-1 rounded-pill mb-2">
+                        Step 3
+                    </span>
+
+                    <h5 class="fw-bold text-navy">
+                        Comparative Model Training
+                    </h5>
+
+                    <p class="text-muted small">
+
+                        Three machine-learning classification algorithms
+                        are trained using the combined Marathi news corpus
+                        containing <strong>12,056 cleaned samples</strong>
+                        across <strong>10 target categories</strong>.
+
+                        A stratified 20% held-out test split is used
+                        for 10-class evaluation.
+
+                    </p>
+
+                    <ul class="text-muted small mb-0">
+
+                        <li>
+                            <strong>Multinomial Naive Bayes:</strong>
+                            A probabilistic classifier based on Bayes'
+                            theorem with Laplace smoothing.
+                        </li>
+
+                        <li>
+                            <strong>Logistic Regression:</strong>
+                            A linear classification algorithm using
+                            learned decision boundaries and L2 regularization.
+                        </li>
+
+                        <li>
+                            <strong>Linear SVM:</strong>
+                            A maximum-margin classifier designed for
+                            high-dimensional TF-IDF text features.
+                        </li>
+
+                    </ul>
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <!-- STEP 4 -->
+        <div class="col-md-6">
+
+            <div class="card card-custom h-100 border-0 shadow-sm p-3">
+
+                <div class="card-body">
+
+                    <span class="badge bg-primary px-3 py-1 rounded-pill mb-2">
+                        Step 4
+                    </span>
+
+                    <h5 class="fw-bold text-navy">
+                        Probability Calibration &amp; Inference
+                    </h5>
+
+                    <p class="text-muted small">
+
+                        The selected Linear SVM model is calibrated
+                        to produce interpretable class-probability
+                        estimates for the final news-category prediction.
+
+                    </p>
+
+                    <ul class="text-muted small mb-0">
+
+                        <li>
+                            <strong>CalibratedClassifierCV:</strong>
+                            Calibrates the Linear SVM using sigmoid
+                            calibration across 3-fold cross-validation.
+                        </li>
+
+                        <li>
+                            <strong>Class Probabilities:</strong>
+                            Produces probability estimates for all
+                            10 target news categories.
+                        </li>
+
+                        <li>
+                            <strong>Selected Model:</strong>
+                            Linear SVM achieved the highest performance
+                            on the 10-class held-out test set.
+                        </li>
+
+                        <li>
+                            <strong>10-Class Test Accuracy:</strong>
+                            84.78%
+                        </li>
+
+                        <li>
+                            <strong>Weighted F1:</strong>
+                            84.59%
+                        </li>
+
+                    </ul>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <!-- DATASET & CATEGORY SUMMARY -->
+    <div class="row justify-content-center mt-5">
+
+        <div class="col-lg-10">
+
+            <div class="card card-custom border-0 shadow-sm p-4">
+
+                <div class="card-body text-center">
+
+                    <h5 class="fw-bold text-navy mb-3">
+                        <i class="bi bi-database me-2 text-primary"></i>
+                        Dataset &amp; Classification Overview
+                    </h5>
+
+
+                    <div class="row g-3">
+
+
+                        <!-- DATASET -->
+                        <div class="col-md-4">
+
+                            <div class="p-3 bg-light rounded-3">
+
+                                <div class="fw-bold text-primary fs-4">
+                                    12,056
+                                </div>
+
+                                <div class="text-muted small">
+                                    Combined Cleaned Samples
+                                </div>
+
+                            </div>
+
+                        </div>
+
+
+                        <!-- CATEGORIES -->
+                        <div class="col-md-4">
+
+                            <div class="p-3 bg-light rounded-3">
+
+                                <div class="fw-bold text-primary fs-4">
+                                    10
+                                </div>
+
+                                <div class="text-muted small">
+                                    Target Categories
+                                </div>
+
+                            </div>
+
+                        </div>
+
+
+                        <!-- MODEL -->
+                        <div class="col-md-4">
+
+                            <div class="p-3 bg-light rounded-3">
+
+                                <div class="fw-bold text-primary fs-4">
+                                    Linear SVM
+                                </div>
+
+                                <div class="text-muted small">
+                                    Selected Classification Model
+                                </div>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+
+                    <!-- CATEGORIES -->
+                    <div class="mt-4">
+
+                        <p class="text-muted small mb-2">
+                            <strong>10 News Categories:</strong>
+                        </p>
+
+                        <p class="text-muted small mb-0">
+                            Politics • Sports • Entertainment • Business • Technology
+                            • Health • Education • Maharashtra • India • World
+                        </p>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+{% endblock %}

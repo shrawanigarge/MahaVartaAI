@@ -1,0 +1,444 @@
+{% extends "base.html" %}
+
+{% block title %}Results & Performance Analytics{% endblock %}
+
+{% block content %}
+
+<div class="container py-3">
+
+    <!-- Header -->
+    <div class="row justify-content-center text-center mb-5">
+        <div class="col-lg-8">
+
+            <span
+                class="badge bg-success-subtle text-success border border-success-subtle px-3 py-2 rounded-pill mb-2 fw-semibold">
+                <i class="bi bi-graph-up me-1"></i>
+                Empirical Model Evaluation
+            </span>
+
+            <h1 class="display-6 fw-bold text-navy">
+                Evaluation Results & Metrics
+            </h1>
+
+            <p class="lead text-muted">
+                Performance evaluation of the Marathi News Classification system
+                on a 10-category held-out test dataset.
+            </p>
+
+        </div>
+    </div>
+
+
+    <!-- =========================
+         SUMMARY KPI CARDS
+    ========================== -->
+    <div class="row g-3 mb-5">
+
+        <!-- Dataset -->
+        <div class="col-6 col-md-3">
+            <div class="card card-custom border-0 shadow-sm text-center p-3 h-100">
+
+                <small class="text-muted text-uppercase fw-bold">
+                    Combined Dataset
+                </small>
+
+                <h3 class="fw-bold text-navy mt-1 mb-0">
+                    {{ metrics.get('train_samples', 12056) }}
+                </h3>
+
+                <small class="text-secondary">
+                    Combined cleaned samples
+                </small>
+
+            </div>
+        </div>
+
+
+        <!-- Categories -->
+        <div class="col-6 col-md-3">
+            <div class="card card-custom border-0 shadow-sm text-center p-3 h-100">
+
+                <small class="text-muted text-uppercase fw-bold">
+                    Categories
+                </small>
+
+                <h3 class="fw-bold text-navy mt-1 mb-0">
+                    {{ metrics.get('categories', []) | length }}
+                </h3>
+
+                <small class="text-secondary">
+                    Target news classes
+                </small>
+
+            </div>
+        </div>
+
+
+        <!-- Selected Model -->
+        <div class="col-6 col-md-3">
+            <div class="card card-custom border-0 shadow-sm text-center p-3 h-100">
+
+                <small class="text-muted text-uppercase fw-bold">
+                    Selected Model
+                </small>
+
+                <h3 class="fw-bold text-primary mt-1 mb-0">
+                    {{ metrics.get('selected_model', 'Linear SVM') }}
+                </h3>
+
+                <small class="text-secondary">
+                    Best performing model
+                </small>
+
+            </div>
+        </div>
+
+
+        <!-- Accuracy -->
+        <div class="col-6 col-md-3">
+            <div class="card card-custom border-0 shadow-sm text-center p-3 h-100">
+
+                <small class="text-muted text-uppercase fw-bold">
+                    10-Class Test Accuracy
+                </small>
+
+                <h3 class="fw-bold text-success mt-1 mb-0">
+                    {{ (metrics.get('selected_model_accuracy', 0.8478) * 100) | round(2) }}%
+                </h3>
+
+                <small class="text-secondary">
+                    Weighted F1:
+                    {{ (metrics.get('selected_model_f1', 0.8459) * 100) | round(2) }}%
+                </small>
+
+            </div>
+        </div>
+
+    </div>
+
+
+    <!-- =========================
+         MODEL COMPARISON TABLE
+    ========================== -->
+    <div class="row mb-5">
+
+        <div class="col-lg-12">
+
+            <div class="card card-custom border-0 shadow-sm p-4">
+
+                <div class="card-body">
+
+                    <h4 class="fw-bold text-navy mb-3">
+                        <i class="bi bi-table text-primary me-2"></i>
+                        Multi-Model Performance Comparison
+                    </h4>
+
+                    <p class="text-muted small">
+                        Comparison of candidate machine learning algorithms
+                        evaluated on the held-out 10-category test split.
+                    </p>
+
+
+                    <div class="table-responsive">
+
+                        <table class="table table-hover align-middle">
+
+                            <thead class="table-light">
+
+                                <tr>
+                                    <th>Model Name</th>
+                                    <th class="text-end">Accuracy</th>
+                                    <th class="text-end">Precision</th>
+                                    <th class="text-end">Recall</th>
+                                    <th class="text-end">F1 Score</th>
+                                    <th class="text-center">Status</th>
+                                </tr>
+
+                            </thead>
+
+
+                            <tbody>
+
+                                {% for row in metrics.get('comparison', []) %}
+
+                                <tr {% if row['Model']==metrics.get('selected_model') %}
+                                    class="table-primary-subtle fw-semibold" {% endif %}>
+
+                                    <!-- Model -->
+                                    <td>
+                                        <i class="bi bi-cpu text-primary me-2"></i>
+                                        {{ row['Model'] }}
+                                    </td>
+
+
+                                    <!-- Accuracy -->
+                                    <td class="text-end font-monospace">
+                                        {{ (row['Accuracy'] * 100) | round(2) }}%
+                                    </td>
+
+
+                                    <!-- Precision -->
+                                    <td class="text-end font-monospace">
+                                        {{ (row['Precision'] * 100) | round(2) }}%
+                                    </td>
+
+
+                                    <!-- Recall -->
+                                    <td class="text-end font-monospace">
+                                        {{ (row['Recall'] * 100) | round(2) }}%
+                                    </td>
+
+
+                                    <!-- F1 -->
+                                    <td class="text-end font-monospace text-primary fw-bold">
+                                        {{ (row['F1 Score'] * 100) | round(2) }}%
+                                    </td>
+
+
+                                    <!-- Status -->
+                                    <td class="text-center">
+
+                                        {% if row['Model'] == metrics.get('selected_model') %}
+
+                                        <span class="badge bg-success">
+                                            <i class="bi bi-check-lg me-1"></i>
+                                            Selected Best
+                                        </span>
+
+                                        {% else %}
+
+                                        <span class="badge bg-secondary-subtle text-secondary">
+                                            Evaluated
+                                        </span>
+
+                                        {% endif %}
+
+                                    </td>
+
+                                </tr>
+
+                                {% endfor %}
+
+                            </tbody>
+
+                        </table>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <!-- =========================
+         GRAPHICAL VISUALIZATIONS
+    ========================== -->
+    <div class="row g-4 mb-5">
+
+
+        <!-- MODEL COMPARISON -->
+        <div class="col-lg-6">
+
+            <div class="card card-custom border-0 shadow-sm p-3 h-100">
+
+                <div class="card-body">
+
+                    <h5 class="fw-bold text-navy mb-3">
+                        <i class="bi bi-bar-chart-fill text-primary me-2"></i>
+                        Model Comparison Chart
+                    </h5>
+
+                    <img src="{{ url_for('static', filename='images/model_comparison.png') }}"
+                        class="img-fluid rounded border shadow-sm" alt="Model Comparison Chart">
+
+                    <p class="text-muted small mt-2 mb-0">
+                        Comparison of Accuracy, Precision, Recall and F1 Score
+                        across the three classification models.
+                    </p>
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <!-- CONFUSION MATRIX -->
+        <div class="col-lg-6">
+
+            <div class="card card-custom border-0 shadow-sm p-3 h-100">
+
+                <div class="card-body">
+
+                    <h5 class="fw-bold text-navy mb-3">
+                        <i class="bi bi-grid-fill text-primary me-2"></i>
+                        Confusion Matrix
+                    </h5>
+
+                    <img src="{{ url_for('static', filename='images/confusion_matrix.png') }}"
+                        class="img-fluid rounded border shadow-sm" alt="Confusion Matrix">
+
+                    <p class="text-muted small mt-2 mb-0">
+                        10 × 10 confusion matrix showing prediction
+                        distribution across all target categories.
+                    </p>
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <!-- CATEGORY DISTRIBUTION -->
+        <div class="col-lg-12">
+
+            <div class="card card-custom border-0 shadow-sm p-3">
+
+                <div class="card-body">
+
+                    <h5 class="fw-bold text-navy mb-3">
+                        <i class="bi bi-pie-chart-fill text-primary me-2"></i>
+                        Combined Training Category Distribution
+                    </h5>
+
+                    <img src="{{ url_for('static', filename='images/category_distribution.png') }}"
+                        class="img-fluid rounded border shadow-sm" alt="Category Distribution Chart">
+
+                    <p class="text-muted small mt-2 mb-0">
+                        Distribution of the 12,056 combined samples
+                        across the 10 news categories.
+                    </p>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <!-- =========================
+         PER-CATEGORY PERFORMANCE
+    ========================== -->
+
+    {% if metrics.get('classification_report') %}
+
+    <div class="row mb-4">
+
+        <div class="col-lg-12">
+
+            <div class="card card-custom border-0 shadow-sm p-4">
+
+                <div class="card-body">
+
+                    <h4 class="fw-bold text-navy mb-3">
+
+                        <i class="bi bi-list-check text-primary me-2"></i>
+
+                        Per-Category Classification Breakdown
+
+                    </h4>
+
+                    <p class="text-muted small">
+                        Precision, Recall, F1 Score and test support
+                        for each of the 10 news categories.
+                    </p>
+
+
+                    <div class="table-responsive">
+
+                        <table class="table table-sm table-striped align-middle">
+
+                            <thead class="table-light">
+
+                                <tr>
+                                    <th>Category</th>
+                                    <th class="text-end">Precision</th>
+                                    <th class="text-end">Recall</th>
+                                    <th class="text-end">F1-Score</th>
+                                    <th class="text-end">Test Samples (Support)</th>
+                                </tr>
+
+                            </thead>
+
+
+                            <tbody>
+
+                                {% for cat in metrics.get('categories', []) %}
+
+                                {% set cat_data =
+                                metrics.get('classification_report', {}).get(cat, {})
+                                %}
+
+                                <tr>
+
+                                    <!-- Category -->
+                                    <td class="fw-semibold">
+
+                                        <span class="category-badge category-{{ cat | lower }} px-3 py-1 fs-6">
+                                            {{ cat }}
+                                        </span>
+
+                                    </td>
+
+
+                                    <!-- Precision -->
+                                    <td class="text-end font-monospace">
+
+                                        {{ (cat_data.get('precision', 0) * 100) | round(2) }}%
+
+                                    </td>
+
+
+                                    <!-- Recall -->
+                                    <td class="text-end font-monospace">
+
+                                        {{ (cat_data.get('recall', 0) * 100) | round(2) }}%
+
+                                    </td>
+
+
+                                    <!-- F1 -->
+                                    <td class="text-end font-monospace text-primary fw-bold">
+
+                                        {{ (cat_data.get('f1-score', 0) * 100) | round(2) }}%
+
+                                    </td>
+
+
+                                    <!-- Support -->
+                                    <td class="text-end font-monospace">
+
+                                        {{ cat_data.get('support', 0) | int }}
+
+                                    </td>
+
+                                </tr>
+
+                                {% endfor %}
+
+                            </tbody>
+
+                        </table>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+    {% endif %}
+
+</div>
+
+{% endblock %}

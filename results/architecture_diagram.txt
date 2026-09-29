@@ -1,0 +1,35 @@
+
+                    Marathi News Headline
+                              │
+                              ▼
+                     Text Preprocessing
+                              │
+                              ▼
+                    Marathi Tokenization
+                              │
+                              ▼
+                      Stopword Removal
+                              │
+                              ▼
+                           TF-IDF
+               (Unigrams + Bigrams, Sublinear TF)
+                              │
+               ┌──────────────┼──────────────┐
+               ▼              ▼              ▼
+          Naive Bayes    Logistic Regression  SVM
+          (Acc: 82.80%)     (Acc: 82.76%)  (Acc: 83.75%)
+               │              │              │
+               └──────────────┼──────────────┘
+                              ▼
+                       Best Classifier
+                     Linear SVM (83.20% F1)
+                              │
+                              ▼
+                    Predicted News Category
+                 (State • Entertainment • Sports)
+                              │
+                              ▼
+                       Flask Web App
+                              │
+                              ▼
+                       User / REST API

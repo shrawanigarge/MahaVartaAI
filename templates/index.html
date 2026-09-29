@@ -1,0 +1,320 @@
+{% extends "base.html" %}
+
+{% block title %}Home - Marathi News Classification{% endblock %}
+
+{% block content %}
+<div class="container">
+    <!-- Main Heading (No Subtitle) -->
+    <div class="row justify-content-center text-center mb-4">
+        <div class="col-lg-9">
+            <h1 class="display-5 fw-bold text-navy mb-0">Marathi News Classification</h1>
+        </div>
+    </div>
+
+    <!-- Main Prediction Input Card -->
+    <div class="row justify-content-center mb-5">
+        <div class="col-lg-8">
+            <div class="card card-custom border-0 shadow-lg p-3 p-md-4">
+                <div class="card-body">
+                    {% if error_message %}
+                    <div class="alert alert-danger alert-dismissible fade show d-flex align-items-center mb-4" role="alert">
+                        <i class="bi bi-exclamation-triangle-fill fs-5 me-2"></i>
+                        <div>{{ error_message }}</div>
+                        <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+                    </div>
+                    {% endif %}
+
+                    <form action="{{ url_for('index') }}" method="POST" id="predictionForm">
+                        <div class="mb-4">
+                            <label for="headlineInput" class="form-label fw-bold text-dark fs-5">
+                                <i class="bi bi-pencil-square text-primary me-2"></i>Enter Marathi News Headline:
+                            </label>
+                            <textarea 
+                                class="form-control form-control-lg marathi-text" 
+                                id="headlineInput" 
+                                name="headline" 
+                                rows="3" 
+                                placeholder="उदा. हृतिक करतोय बायोपिक 'सुपर 30'"
+                                required
+                            >{{ input_text }}</textarea>
+                            <div class="d-flex justify-content-between align-items-center mt-2">
+                                <small class="text-muted"><i class="bi bi-info-circle me-1"></i>Supports Marathi Devanagari script</small>
+                                <span id="charCount" class="badge bg-light text-secondary border">0 chars</span>
+                            </div>
+                        </div>
+
+                        <div class="d-grid gap-2">
+                            <button type="submit" class="btn btn-primary btn-lg fw-semibold shadow-sm py-3" id="predictBtn">
+                                <i class="bi bi-cpu-fill me-2"></i>Predict Category
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Prediction Result Section -->
+    {% if prediction %}
+    <div class="row justify-content-center mb-5" id="predictionResultCard">
+        <div class="col-lg-8">
+            <div class="card card-result border-0 shadow-lg overflow-hidden">
+                <div class="card-header bg-gradient-primary text-white p-3 p-md-4">
+                    <div class="d-flex align-items-center justify-content-between">
+                        <span class="fw-bold fs-5"><i class="bi bi-check2-circle me-2"></i>Prediction Result</span>
+                        <span class="badge bg-white text-primary px-3 py-2 rounded-pill fw-bold fs-6">
+                            Confidence: {{ prediction.confidence_percent }}
+                        </span>
+                    </div>
+                </div>
+                <div class="card-body p-4">
+                    <!-- Original Headline -->
+                    <div class="mb-4">
+                        <label class="text-muted small fw-bold text-uppercase tracking-wider">News Headline</label>
+                        <div class="p-3 bg-light rounded-3 border-start border-4 border-primary">
+                            <h4 class="marathi-text mb-0 text-dark fw-bold">"{{ prediction.headline }}"</h4>
+                        </div>
+                    </div>
+
+                    <!-- Predicted Category -->
+                    <div class="row align-items-center mb-4">
+                        <div class="col-md-6 mb-3 mb-md-0">
+                            <label class="text-muted small fw-bold text-uppercase tracking-wider">Predicted Category</label>
+                            <div class="d-flex align-items-center mt-1">
+                                <span class="category-badge category-{{ prediction.category | lower }} fs-4 px-4 py-2">
+                                    {{ prediction.category }}
+                                </span>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <label class="text-muted small fw-bold text-uppercase tracking-wider">Confidence Level</label>
+                            <div class="mt-1">
+                                <div class="d-flex justify-content-between mb-1">
+                                    <span class="fw-bold text-primary">{{ prediction.confidence_percent }}</span>
+                                    <small class="text-muted">{{ prediction.confidence_type }}</small>
+                                </div>
+                                <div class="progress progress-custom" style="height: 12px;">
+                                    <div class="progress-bar bg-primary" role="progressbar" 
+                                         style="width: {{ prediction.confidence * 100 }}%" 
+                                         aria-valuenow="{{ prediction.confidence * 100 }}" 
+                                         aria-valuemin="0" 
+                                         aria-valuemax="100">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- All 10 Category Probabilities -->
+                    <div class="mb-4">
+                        <label class="text-muted small fw-bold text-uppercase tracking-wider d-block mb-2">
+                            <i class="bi bi-bar-chart-fill text-primary me-1"></i>All 10 Category Probability Scores
+                        </label>
+                        <div class="row g-2">
+                            {% for cat, prob in prediction.probabilities.items() %}
+                            {% set pct = (prob * 100) | round(2) %}
+                            <div class="col-lg-4 col-md-6 col-sm-6">
+                                <div class="p-2 px-3 rounded border {% if cat == prediction.category %}bg-primary-subtle border-primary-subtle fw-semibold{% else %}bg-light border-light-subtle{% endif %}">
+                                    <div class="d-flex justify-content-between align-items-center mb-1">
+                                        <span class="small {% if cat == prediction.category %}text-primary fw-bold{% else %}text-dark{% endif %}">
+                                            {{ cat }}
+                                            {% if cat == prediction.category %}
+                                            <i class="bi bi-check-circle-fill text-primary ms-1"></i>
+                                            {% endif %}
+                                        </span>
+                                        <span class="badge {% if cat == prediction.category %}bg-primary{% else %}bg-secondary{% endif %}">
+                                            {{ pct }}%
+                                        </span>
+                                    </div>
+                                    <div class="progress" style="height: 6px;">
+                                        <div class="progress-bar {% if cat == prediction.category %}bg-primary{% else %}bg-secondary opacity-50{% endif %}" 
+                                             role="progressbar" 
+                                             style="width: {{ pct }}%;" 
+                                             aria-valuenow="{{ pct }}" 
+                                             aria-valuemin="0" 
+                                             aria-valuemax="100">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            {% endfor %}
+                        </div>
+                    </div>
+
+                    <!-- Try Another Headline Button -->
+                    <div class="d-flex justify-content-center pt-2">
+                        <button type="button" class="btn btn-outline-primary px-4 py-2 fw-semibold" id="tryAnotherBtn">
+                            <i class="bi bi-arrow-counterclockwise me-2"></i>Try Another Headline
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    {% endif %}
+
+    <!-- LIVE NLP Preprocessing Section -->
+    <div class="row justify-content-center mb-5" id="livePreprocessingSection">
+        <div class="col-lg-10">
+            <div class="card card-custom border-0 shadow-sm p-4">
+                <div class="card-body">
+                    <div class="text-center mb-4">
+                        <span class="badge bg-primary-subtle text-primary border border-primary-subtle px-3 py-1 rounded-pill mb-2 fw-semibold">
+                            <i class="bi bi-cpu-fill me-1"></i> Pipeline Visualization
+                        </span>
+                        <h3 class="fw-bold text-navy mb-1">LIVE NLP PREPROCESSING</h3>
+                        <p class="text-muted small mb-0">See how your headline is processed before classification.</p>
+                    </div>
+
+                    <div id="preprocessingContentArea">
+                        {% if prediction %}
+                        <!-- Dynamic Live Preprocessing Steps for Actual Input -->
+                        <div id="livePreprocessingContainer">
+                            <div class="pipeline-grid mb-4">
+                                <!-- Step 01: Original Input -->
+                                <div class="pipeline-step-item">
+                                    <div class="pipeline-step-card">
+                                        <div class="pipeline-step-num">01</div>
+                                        <h6 class="pipeline-step-title">ORIGINAL INPUT</h6>
+                                        <div class="p-2 bg-light rounded border border-light-subtle mb-2">
+                                            <span class="marathi-text fw-bold text-dark">{{ prediction.original_text }}</span>
+                                        </div>
+                                        <small class="text-muted d-block mt-auto">Raw headline string</small>
+                                    </div>
+                                </div>
+
+                                <div class="pipeline-arrow"><i class="bi bi-arrow-down d-lg-none"></i><i class="bi bi-arrow-right d-none d-lg-block"></i></div>
+
+                                <!-- Step 02: Unicode Normalization -->
+                                <div class="pipeline-step-item">
+                                    <div class="pipeline-step-card">
+                                        <div class="pipeline-step-num">02</div>
+                                        <h6 class="pipeline-step-title">UNICODE NORMALIZATION</h6>
+                                        <div class="p-2 bg-light rounded border border-light-subtle mb-2">
+                                            <span class="marathi-text fw-medium text-dark">{{ prediction.normalized_text }}</span>
+                                        </div>
+                                        <small class="text-muted d-block mt-auto">NFKC Standardized</small>
+                                    </div>
+                                </div>
+
+                                <div class="pipeline-arrow"><i class="bi bi-arrow-down d-lg-none"></i><i class="bi bi-arrow-right d-none d-lg-block"></i></div>
+
+                                <!-- Step 03: Text Cleaning -->
+                                <div class="pipeline-step-item">
+                                    <div class="pipeline-step-card">
+                                        <div class="pipeline-step-num">03</div>
+                                        <h6 class="pipeline-step-title">TEXT CLEANING</h6>
+                                        <div class="p-2 bg-light rounded border border-light-subtle mb-2">
+                                            <span class="marathi-text fw-medium text-dark">{{ prediction.cleaned_text }}</span>
+                                        </div>
+                                        <small class="text-muted d-block mt-auto">Punctuation & noise stripped</small>
+                                    </div>
+                                </div>
+
+                                <div class="pipeline-arrow"><i class="bi bi-arrow-down d-lg-none"></i><i class="bi bi-arrow-right d-none d-lg-block"></i></div>
+
+                                <!-- Step 04: Tokenization -->
+                                <div class="pipeline-step-item">
+                                    <div class="pipeline-step-card">
+                                        <div class="pipeline-step-num">04</div>
+                                        <h6 class="pipeline-step-title">TOKENIZATION</h6>
+                                        <div class="p-2 bg-light rounded border border-light-subtle mb-2">
+                                            <div class="d-flex flex-wrap gap-1">
+                                                {% for tok in prediction.tokens %}
+                                                <span class="badge bg-white text-dark border marathi-text">{{ tok }}</span>
+                                                {% endfor %}
+                                            </div>
+                                        </div>
+                                        <small class="text-muted font-monospace d-block mt-auto">[{{ prediction.tokens | join(', ') }}]</small>
+                                    </div>
+                                </div>
+
+                                <div class="pipeline-arrow"><i class="bi bi-arrow-down d-lg-none"></i><i class="bi bi-arrow-right d-none d-lg-block"></i></div>
+
+                                <!-- Step 05: Stopword Removal -->
+                                <div class="pipeline-step-item">
+                                    <div class="pipeline-step-card">
+                                        <div class="pipeline-step-num">05</div>
+                                        <h6 class="pipeline-step-title">STOPWORD REMOVAL</h6>
+                                        <div class="p-2 bg-light rounded border border-light-subtle mb-2">
+                                            <div class="d-flex flex-wrap gap-1">
+                                                {% for tok in prediction.filtered_tokens %}
+                                                <span class="badge bg-success-subtle text-success border border-success-subtle marathi-text">{{ tok }}</span>
+                                                {% endfor %}
+                                            </div>
+                                        </div>
+                                        <small class="text-muted font-monospace d-block mt-auto">[{{ prediction.filtered_tokens | join(', ') }}]</small>
+                                    </div>
+                                </div>
+
+                                <div class="pipeline-arrow"><i class="bi bi-arrow-down d-lg-none"></i><i class="bi bi-arrow-right d-none d-lg-block"></i></div>
+
+                                <!-- Step 06: TF-IDF Features -->
+                                <div class="pipeline-step-item">
+                                    <div class="pipeline-step-card">
+                                        <div class="pipeline-step-num">06</div>
+                                        <h6 class="pipeline-step-title">TF-IDF FEATURES</h6>
+                                        <div class="p-2 bg-light rounded border border-light-subtle mb-2">
+                                            {% if prediction.tfidf_features %}
+                                            <div class="d-flex flex-column gap-1">
+                                                {% for feat in prediction.tfidf_features[:6] %}
+                                                <div class="d-flex justify-content-between align-items-center small py-1 border-bottom border-light-subtle">
+                                                    <span class="marathi-text fw-semibold text-primary">{{ feat.term }}</span>
+                                                    <span class="badge bg-primary-subtle text-primary font-monospace">{{ feat.value }}</span>
+                                                </div>
+                                                {% endfor %}
+                                            </div>
+                                            {% else %}
+                                            <span class="text-muted small">No active vocabulary features</span>
+                                            {% endif %}
+                                        </div>
+                                        <small class="text-muted d-block mt-auto">Top n-gram vector weights</small>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- ML Classifier Input Below Step 06 -->
+                            <div class="card bg-primary-subtle border-primary-subtle p-3 rounded-3 mt-4 text-center">
+                                <h6 class="fw-bold text-primary mb-1">
+                                    <i class="bi bi-cpu-fill me-2"></i>ML CLASSIFIER INPUT
+                                </h6>
+                                <p class="text-secondary small mb-0">
+                                    TF-IDF feature vector passed to the trained classifier
+                                </p>
+                            </div>
+                        </div>
+                        {% else %}
+                        <!-- Placeholder State Before User Enters a Headline -->
+                        <div class="text-center py-5 px-3 bg-light rounded-3 border border-dashed text-muted" id="preprocessingPlaceholder">
+                            <i class="bi bi-gear-wide-connected fs-1 text-secondary opacity-50 mb-2 d-block"></i>
+                            <p class="mb-0 fw-medium">Enter a Marathi headline above to view its preprocessing.</p>
+                        </div>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 10 Categories Grid Overview -->
+    <div class="row justify-content-center text-center mt-2 mb-4">
+        <div class="col-lg-10">
+            <h6 class="fw-bold text-navy text-uppercase tracking-wider small mb-3">
+                <i class="bi bi-grid-3x3-gap-fill text-primary me-2"></i>10 Supported News Categories
+            </h6>
+            <div class="d-flex flex-wrap justify-content-center gap-2">
+                <span class="category-badge category-politics fs-6 px-3 py-1">Politics (राजकारण)</span>
+                <span class="category-badge category-sports fs-6 px-3 py-1">Sports (क्रीडा)</span>
+                <span class="category-badge category-entertainment fs-6 px-3 py-1">Entertainment (मनोरंजन)</span>
+                <span class="category-badge category-business fs-6 px-3 py-1">Business (व्यापार)</span>
+                <span class="category-badge category-technology fs-6 px-3 py-1">Technology (तंत्रज्ञान)</span>
+                <span class="category-badge category-health fs-6 px-3 py-1">Health (आरोग्य)</span>
+                <span class="category-badge category-education fs-6 px-3 py-1">Education (शिक्षण)</span>
+                <span class="category-badge category-maharashtra fs-6 px-3 py-1">Maharashtra (महाराष्ट्र)</span>
+                <span class="category-badge category-india fs-6 px-3 py-1">India (भारत)</span>
+                <span class="category-badge category-world fs-6 px-3 py-1">World (आंतरराष्ट्रीय)</span>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

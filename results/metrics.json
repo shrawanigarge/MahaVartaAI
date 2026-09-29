@@ -1,0 +1,293 @@
+{
+    "dataset_total": 14474,
+    "train_samples": 12056,
+    "test_samples": 2412,
+    "external_valid_samples": 2418,
+    "categories": [
+        "Business",
+        "Education",
+        "Entertainment",
+        "Health",
+        "India",
+        "Maharashtra",
+        "Politics",
+        "Sports",
+        "Technology",
+        "World"
+    ],
+    "selected_model": "Linear SVM",
+    "selected_model_accuracy": 0.8478441127694859,
+    "selected_model_f1": 0.8459136553608424,
+    "selected_model_macro_f1": 0.8857207968473185,
+    "selected_model_precision": 0.8502448447790429,
+    "selected_model_recall": 0.8478441127694859,
+    "external_valid_accuracy": 0.8283705541770058,
+    "external_valid_macro_f1": 0.7725366835817858,
+    "comparison": [
+        {
+            "Model": "Multinomial Naive Bayes",
+            "Accuracy": 0.8420398009950248,
+            "Precision": 0.8488640516326108,
+            "Recall": 0.8420398009950248,
+            "F1 Score": 0.8377402355787827,
+            "Macro F1": 0.8786469114237645,
+            "External Accuracy (3-class)": 0.8246484698097601,
+            "External Macro F1 (3-class)": 0.7618124280911869
+        },
+        {
+            "Model": "Logistic Regression",
+            "Accuracy": 0.8391376451077943,
+            "Precision": 0.8461075147937587,
+            "Recall": 0.8391376451077943,
+            "F1 Score": 0.8350465813004685,
+            "Macro F1": 0.8774736686686525,
+            "External Accuracy (3-class)": 0.8163771712158809,
+            "External Macro F1 (3-class)": 0.7422286074529477
+        },
+        {
+            "Model": "Linear SVM",
+            "Accuracy": 0.8478441127694859,
+            "Precision": 0.8502448447790429,
+            "Recall": 0.8478441127694859,
+            "F1 Score": 0.8459136553608424,
+            "Macro F1": 0.8857207968473185,
+            "External Accuracy (3-class)": 0.8283705541770058,
+            "External Macro F1 (3-class)": 0.7725366835817858
+        }
+    ],
+    "classification_report": {
+        "Business": {
+            "precision": 1.0,
+            "recall": 0.8723404255319149,
+            "f1-score": 0.9318181818181818,
+            "support": 47.0
+        },
+        "Education": {
+            "precision": 1.0,
+            "recall": 0.8297872340425532,
+            "f1-score": 0.9069767441860465,
+            "support": 47.0
+        },
+        "Entertainment": {
+            "precision": 0.7981651376146789,
+            "recall": 0.7397959183673469,
+            "f1-score": 0.7678729037952339,
+            "support": 588.0
+        },
+        "Health": {
+            "precision": 1.0,
+            "recall": 0.8723404255319149,
+            "f1-score": 0.9318181818181818,
+            "support": 47.0
+        },
+        "India": {
+            "precision": 1.0,
+            "recall": 0.7872340425531915,
+            "f1-score": 0.8809523809523809,
+            "support": 47.0
+        },
+        "Maharashtra": {
+            "precision": 0.8374277456647399,
+            "recall": 0.9272,
+            "f1-score": 0.880030372057707,
+            "support": 1250.0
+        },
+        "Politics": {
+            "precision": 0.9347826086956522,
+            "recall": 0.9148936170212766,
+            "f1-score": 0.9247311827956989,
+            "support": 47.0
+        },
+        "Sports": {
+            "precision": 0.8520408163265306,
+            "recall": 0.6816326530612244,
+            "f1-score": 0.7573696145124716,
+            "support": 245.0
+        },
+        "Technology": {
+            "precision": 1.0,
+            "recall": 0.8936170212765957,
+            "f1-score": 0.9438202247191011,
+            "support": 47.0
+        },
+        "World": {
+            "precision": 1.0,
+            "recall": 0.8723404255319149,
+            "f1-score": 0.9318181818181818,
+            "support": 47.0
+        },
+        "accuracy": 0.8478441127694859,
+        "macro avg": {
+            "precision": 0.9422416308301601,
+            "recall": 0.8391181762917933,
+            "f1-score": 0.8857207968473185,
+            "support": 2412.0
+        },
+        "weighted avg": {
+            "precision": 0.8502448447790429,
+            "recall": 0.8478441127694859,
+            "f1-score": 0.8459136553608424,
+            "support": 2412.0
+        }
+    },
+    "confusion_matrix": [
+        [
+            41,
+            0,
+            2,
+            0,
+            0,
+            4,
+            0,
+            0,
+            0,
+            0
+        ],
+        [
+            0,
+            39,
+            1,
+            0,
+            0,
+            7,
+            0,
+            0,
+            0,
+            0
+        ],
+        [
+            0,
+            0,
+            435,
+            0,
+            0,
+            141,
+            0,
+            12,
+            0,
+            0
+        ],
+        [
+            0,
+            0,
+            2,
+            41,
+            0,
+            4,
+            0,
+            0,
+            0,
+            0
+        ],
+        [
+            0,
+            0,
+            0,
+            0,
+            37,
+            8,
+            1,
+            1,
+            0,
+            0
+        ],
+        [
+            0,
+            0,
+            73,
+            0,
+            0,
+            1159,
+            2,
+            16,
+            0,
+            0
+        ],
+        [
+            0,
+            0,
+            0,
+            0,
+            0,
+            4,
+            43,
+            0,
+            0,
+            0
+        ],
+        [
+            0,
+            0,
+            30,
+            0,
+            0,
+            48,
+            0,
+            167,
+            0,
+            0
+        ],
+        [
+            0,
+            0,
+            1,
+            0,
+            0,
+            4,
+            0,
+            0,
+            42,
+            0
+        ],
+        [
+            0,
+            0,
+            1,
+            0,
+            0,
+            5,
+            0,
+            0,
+            0,
+            41
+        ]
+    ],
+    "external_classification_report": {
+        "Entertainment": {
+            "precision": 0.8,
+            "recall": 0.6843657817109144,
+            "f1-score": 0.7376788553259142,
+            "support": 678.0
+        },
+        "Maharashtra": {
+            "precision": 0.848780487804878,
+            "recall": 0.9206349206349206,
+            "f1-score": 0.883248730964467,
+            "support": 1512.0
+        },
+        "Sports": {
+            "precision": 0.7577319587628866,
+            "recall": 0.6447368421052632,
+            "f1-score": 0.6966824644549763,
+            "support": 228.0
+        },
+        "micro avg": {
+            "precision": 0.8297431648715824,
+            "recall": 0.8283705541770058,
+            "f1-score": 0.8290562913907285,
+            "support": 2418.0
+        },
+        "macro avg": {
+            "precision": 0.8021708155225883,
+            "recall": 0.7499125148170327,
+            "f1-score": 0.7725366835817858,
+            "support": 2418.0
+        },
+        "weighted avg": {
+            "precision": 0.8265173631757293,
+            "recall": 0.8283705541770058,
+            "f1-score": 0.8248395148986677,
+            "support": 2418.0
+        }
+    }
+}
